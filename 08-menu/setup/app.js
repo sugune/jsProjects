@@ -1,12 +1,11 @@
-const menu = [
-  {
-    id: 1,
-    title: "buttermilk pancakes",
-    category: "breakfast",
-    price: 15.99,
-    img: "./images/item-1.jpeg",
-    desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
-  },
+const menu = [{
+  id: 1,
+  title: "buttermilk pancakes",
+  category: "breakfast",
+  price: 15.99,
+  img: "./images/item-1.jpeg",
+  desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
+},
   {
     id: 2,
     title: "diner double",
@@ -71,4 +70,113 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
+
+const sectionCenter = document.querySelector(".section-center");
+const btnContainer = document.querySelector('.btn-container');
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  displayItems(menu);
+  displayMenuBtn();
+});
+/*
+filter(menu);
+const filterBtns = document.querySelectorAll(".filter-btn");
+console.log(filterBtns)
+filterBtns.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    const category = e.currentTarget.dataset.id;
+    const filterMenu = menu.filter((item) => {
+      return item.category === category;
+    });
+    if (category === 'all') {
+      displayItems(menu);
+    } else {
+      displayItems(filterMenu);
+    }
+  });
+});
+
+function filter(menuItems) {
+  
+  const button = menuItems.reduce((value, item) => {
+    value.push(item.category);
+    return value;
+  }, ['all']);
+  
+  let filterButton = [];
+  for (let i = 0; i < button.length; i++) {
+    if (filterButton.indexOf(button[i]) === -1) {
+      filterButton.push(button[i]);
+    }
+  }
+  
+  let displayBtn = filterButton.map((item) => {
+    return `<button class="filter-btn" type="submit" data-id="${item}">${item}</button>`;
+  });
+  
+  displayBtn = displayBtn.join('');
+  btnContainer.innerHTML = displayBtn;
+} */
+
+function displayItems(menuItem) {
+  let displayMenu = menuItem.map((item) => {
+    return `<article class="menu-item">
+        <img src=${item.img} class="photo" alt=${item.title} />
+      <div class="item-info">
+          <header>
+            <h4>${item.title}</h4>
+            <h4 class="price">$${item.price}</h4>
+          </header>
+        <p class="item-text">
+          ${item.desc}
+        </p>
+      </div>
+    </article>`;
+  });
+
+  displayMenu = displayMenu.join("");
+  sectionCenter.innerHTML = displayMenu;
+}
+
+function displayMenuBtn() {
+  
+  const button = menu.reduce((value, item) => {
+    if (!value.includes(item.category)) {
+      value.push(item.category);
+    }
+    return value
+  }, ['all'])
+  
+  const display = button.map((item) => {
+    return`<button class="filter-btn" type="submit" data-id="${item}">${item}</button>`;
+  }).join('');
+  btnContainer.innerHTML = display;
+  
+  const filterBtn = btnContainer.querySelectorAll('.filter-btn');
+  
+  filterBtn.forEach(btn => {
+    btn.addEventListener('click', e => {
+      const category = e.currentTarget.dataset.id;
+      const filterCategory = menu.filter((item) => {
+        return item.category === category;
+      });
+      
+      if (category === 'all') {
+        displayItems(menu);
+      } else {
+        displayItems(filterCategory);
+      }
+    });
+  });
+} 
